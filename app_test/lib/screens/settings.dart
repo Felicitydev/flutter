@@ -11,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   int settingColor = 0xff1976d2;
-  double fontSize = 12.0;
+  double fontSize = 14.0;
   List<int> colors = [
     0xFF455A64,
     0xFFFFC107,
@@ -21,6 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   ];
   SPSettings settings = SPSettings();
   final List<FontSize> fontSizes = [
+    FontSize('default', 14.0),
     FontSize('small', 12.0),
     FontSize('meduim', 16.0),
     FontSize('large', 20.0),
