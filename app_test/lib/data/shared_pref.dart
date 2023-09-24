@@ -18,10 +18,9 @@ class SPSettings{
   _sp = await SharedPreferences.getInstance();
   }
 
-  // Future int() async{
-  //   _sp = await SharedPreferences.getInstance();
-  // }
-
+  Future<void> init() async {
+    _sp = await SharedPreferences.getInstance();
+  }
   Future setColor(int color) {
     return _sp.setInt(colorKey, color);
   }
