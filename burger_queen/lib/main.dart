@@ -181,6 +181,24 @@ class MyHomePage extends StatelessWidget{
                     sideDish(name: "Potatoes", url: "potatoes")
                   ],
                 ),
+              ),
+
+              // Les boissons
+              sectionTitle(title: "Une petite soif?"),
+              Container(
+                color: Theme.of(context).colorScheme.inversePrimary,
+                height: 250,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      drink(name: "Le classique", url: "classic-cola"),
+                      drink(name: "Eau gazeuse", url: "sparkling"),
+                      drink(name: "A l'orange", url: "orange-soda"),
+                      drink(name: "Gout fraise", url: "strawberry-soda")
+                    ],
+                  ),
+                ),
               )
 
             ],
@@ -259,8 +277,37 @@ class MyHomePage extends StatelessWidget{
             endIndent: 8,
           )
         ],
-      )
+      ),
 
+    );
+  }
+
+  Container drink({required String name, required String url}){
+    const  double height = 250;
+    const double width = 125;
+    
+    return Container(
+      margin: const EdgeInsets.all(8),
+      height: height,
+      width: width,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Image.asset(
+            "assets/$url.jpg",
+            fit: BoxFit.cover,
+            height: height,
+          ),
+          Text(
+            name,
+            style: const TextStyle(
+              color: Colors.blue,
+              fontSize: 16,
+              fontWeight: FontWeight.bold
+            ),
+          )
+        ],
+      ),
     );
   }
 }
