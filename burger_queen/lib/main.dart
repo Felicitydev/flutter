@@ -169,6 +169,20 @@ class MyHomePage extends StatelessWidget{
                 ),
               ),
 
+              // Les accompagnements
+              sectionTitle(title: "Les accompagnements"),
+              Card(
+                elevation: 8,
+                child: Column(
+                  children: [
+                    sideDish(name: "Frites classiques", url: "fries"),
+                    sideDish(name: "Frites de patates douces", url: "patate-douce"),
+                    sideDish(name: "Poutine", url: "poutine"),
+                    sideDish(name: "Potatoes", url: "potatoes")
+                  ],
+                ),
+              )
+
             ],
           ),
         )
@@ -216,5 +230,37 @@ class MyHomePage extends StatelessWidget{
      ),
    ) ;
 
+  }
+
+  Container sideDish({required String name, required String url}) {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CircleAvatar(
+                radius: 35,
+                backgroundImage: AssetImage("assets/$url.jpg",) ,
+              ),
+              Text(
+                name,
+                style: const TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
+                ),
+              )
+            ],
+          ),
+          const Divider(
+            indent: 8,
+            endIndent: 8,
+          )
+        ],
+      )
+
+    );
   }
 }
