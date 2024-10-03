@@ -111,8 +111,75 @@ class MyHomePage extends StatelessWidget{
                 ),
               ),
 
+              // Section "En ce moment"
+              sectionTitle(title: "En ce moment"),
+              Center(
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  elevation: 10,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/layer-burger.jpg"),
+                        fit: BoxFit.cover
+                      )
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                            "Une petite faim?",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Venez personnaliser votre burger",
+                          style: TextStyle(
+                            backgroundColor: Theme.of(context).colorScheme.inversePrimary
+                          ),
+                        )
+                      ],
+                    ),
 
+                  ),
+                ),
+              ),
 
+              // Section de choix des burgers
+              sectionTitle(title: "Chaud devant!"),
+              const Text("Le meilleur de nos burgers!"),
+              SizedBox(
+                height: 250,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                     burgerCard(name: "Twins", url: "twins", description: "Le burger des jumeaux"),
+                      burgerCard(name: "Big Queen", url: "big-queen", description: "Pour des reines."),
+                      burgerCard(name: "Egg Bacon", url: "egg-bacon-burger", description: "Le burger des lèves tot!"),
+                      burgerCard(name: "Prince", url: "prince", description: "Le préféré pour des futurs rois."),
+                      burgerCard(name: "Cheese", url: "cheese", description: "Le classique pour les fans de fromage.")
+
+                    ],
+                  ),
+                ),
+              ),
+
+              // Section des accompganements
+              
+              sectionTitle(title: "Les accompagnements"),
+              Card(
+                elevation: 8,
+                child: Column(
+                  children: [
+                    
+                  ],
+                ),
+              )
             ],
           ),
         )
@@ -120,6 +187,45 @@ class MyHomePage extends StatelessWidget{
     );
   }
 
+  Widget sectionTitle({required String title}) {
+    return Padding(
+      padding: const EdgeInsets.only(
+          left: 8,
+          top: 8),
+      child: Text(title, style: titleStyle)
+    );
+  }
 
+  Container burgerCard({required String name, required String url, required String description}){
+    double size = 250;
+    TextStyle descriptionStyle = const TextStyle(
+      fontStyle: FontStyle.italic,
+      color: Colors.black54
+    );
+   return Container(
+     margin: const EdgeInsets.all(12),
+     clipBehavior: Clip.antiAlias,
+     decoration: BoxDecoration(
+       borderRadius: BorderRadius.circular(24),
+       color: Colors.blueAccent.withOpacity(0.3)
+     ),
+     height: size,
+     width: size,
+     child: Column(
+       children: [
+         Image.asset(
+           "assets/$url.jpg",
+           height: size * 0.6,
+           width: size,
+           fit: BoxFit.cover,
+         ),
+         Text(name, style: titleStyle),
+         Text(description, style: descriptionStyle, textAlign: TextAlign.center,
+         )
 
+       ],
+     ),
+   ) ;
+
+  }
 }
