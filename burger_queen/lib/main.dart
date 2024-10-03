@@ -169,17 +169,6 @@ class MyHomePage extends StatelessWidget{
                 ),
               ),
 
-              // Section des accompganements
-              
-              sectionTitle(title: "Les accompagnements"),
-              Card(
-                elevation: 8,
-                child: Column(
-                  children: [
-                    
-                  ],
-                ),
-              )
             ],
           ),
         )
