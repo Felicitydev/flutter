@@ -199,6 +199,27 @@ class MyHomePage extends StatelessWidget{
                     ],
                   ),
                 ),
+              ),
+              
+              // Les desserts
+              sectionTitle(title: "Pour finir une petite touche sucrée"),
+              Wrap(
+                alignment: WrapAlignment.spaceAround,
+                children: [
+                  douceur(name: "Glace Oreo", url: "oreo-ice", size: MediaQuery.of(context).size.width * 0.4, context: context),
+                  douceur(name: "Crepe Fraise", url: "strawberry-waffle", size: MediaQuery.of(context).size.width * 0.4, context: context),
+                  douceur(name: "Donut", url: "donut", size: MediaQuery.of(context).size.width * 0.4, context: context),
+                  douceur(name: "Cupcake", url: "cupcake", size: MediaQuery.of(context).size.width * 0.4, context: context),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Center(
+                          child: sectionTitle(title: "Bonne dégustation!!"),
+                        ),
+                    ),
+                  )
+                ],
               )
 
             ],
@@ -308,6 +329,42 @@ class MyHomePage extends StatelessWidget{
           )
         ],
       ),
+    );
+  }
+
+  Container douceur({required String name, required String url, required double size, required BuildContext context}) {
+    return Container(
+      height: size,
+      width: size,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage("assets/$url.jpg",
+            ),
+          fit: BoxFit.cover
+        ),
+        borderRadius: BorderRadius.circular(12)
+      ),
+      margin: const EdgeInsets.all(8),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.inversePrimary,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 4
+            ),
+            child: Text(
+              name,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16
+              ),
+            ),
+    ),
+    ),
     );
   }
 }
