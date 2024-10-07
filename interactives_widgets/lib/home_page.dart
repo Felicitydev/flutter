@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage>{
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.large(
+      floatingActionButton: FloatingActionButton.small(
           onPressed: _onButtonPressed,
           tooltip: "Incrémentez le compteur",
           backgroundColor: Colors.blueAccent,
@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage>{
           elevation: 0,
           child: const Icon(Icons.add),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
