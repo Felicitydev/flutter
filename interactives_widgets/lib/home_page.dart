@@ -47,14 +47,13 @@ class _HomePageState extends State<HomePage>{
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton.large(
           onPressed: _onButtonPressed,
           tooltip: "Incrémentez le compteur",
-          label: const Text("Appuyez moi!"),
-          icon: const Icon(Icons.add),
-        backgroundColor: Colors.blueAccent,
-        foregroundColor: Colors.white,
-        elevation: 0,
+          backgroundColor: Colors.blueAccent,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          child: const Icon(Icons.add),
       ),
     );
   }
