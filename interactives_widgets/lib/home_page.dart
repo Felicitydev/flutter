@@ -12,6 +12,15 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePageState extends State<HomePage>{
+
+  int _counter=0;
+
+  void _onButtonPressed(){
+    setState(() {
+      _counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +28,29 @@ class _HomePageState extends State<HomePage>{
         title: Text(widget.title),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+                "Vous avez appuyé sur le boutton:",
+                style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Text(
+                "$_counter fois",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 28,
+              ),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: _onButtonPressed,
+          tooltip: "Incrémentez le compteur",
+          child: const Icon(Icons.add),
       ),
     );
   }
