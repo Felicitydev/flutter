@@ -1,6 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   final String title;
 
   const HomePage({super.key, required this.title});
@@ -11,14 +13,19 @@ class HomePage extends StatefulWidget{
   }
 }
 
-class _HomePageState extends State<HomePage>{
-
+class _HomePageState extends State<HomePage> {
   Color backgroundColor = Colors.white;
+  List<String> _titles = [
+    "Learn interactives widgets",
+    "Learn flutter"
+  ];
+  int _titleIndex = 0;
 
-  _update_LongPressed(){
+  _update_LongPressed() {
     setState(() {
-      backgroundColor = (backgroundColor == Colors.white) ? Colors.deepOrangeAccent : Colors.white;
-
+      backgroundColor = (backgroundColor == Colors.white)
+          ? Colors.deepOrangeAccent
+          : Colors.white;
     });
   }
 
@@ -26,7 +33,7 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(_titles[_titleIndex]),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
@@ -36,22 +43,41 @@ class _HomePageState extends State<HomePage>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-                onPressed: (){
-                  setState(() {
-                    backgroundColor = (backgroundColor == Colors.white) ? Colors.black54 : Colors.white;
-                  });
-                },
-                onLongPress: _update_LongPressed,
-                child: const Text("TextButton"),
+              onPressed: () {
+                setState(() {
+                  backgroundColor = (backgroundColor == Colors.white)
+                      ? Colors.black54
+                      : Colors.white;
+                });
+              },
+              onLongPress: _update_LongPressed,
+              child: const Text("TextButton"),
             ),
             TextButton.icon(
                 onPressed: _update_LongPressed,
-                label: const Icon(Icons.palette)
+                label: const Icon(Icons.palette)),
+
+            ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    int newRandomTitle = Random().nextInt(_titles.length);
+                    _titleIndex = newRandomTitle;
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepOrange
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.edit),
+                    Text("Changer le titre")
+                  ],
+                )
             )
           ],
         ),
       ),
-
     );
   }
 }
