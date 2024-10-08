@@ -13,11 +13,12 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage>{
 
-  int _counter=0;
+  Color backgroundColor = Colors.white;
 
-  void _onButtonPressed(){
+  _update_LongPressed(){
     setState(() {
-      _counter++;
+      backgroundColor = (backgroundColor == Colors.white) ? Colors.deepOrangeAccent : Colors.white;
+
     });
   }
 
@@ -29,33 +30,28 @@ class _HomePageState extends State<HomePage>{
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
+      backgroundColor: backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-                "Vous avez appuyé sur le boutton:",
-                style: Theme.of(context).textTheme.titleLarge,
+            TextButton(
+                onPressed: (){
+                  setState(() {
+                    backgroundColor = (backgroundColor == Colors.white) ? Colors.black54 : Colors.white;
+                  });
+                },
+                onLongPress: _update_LongPressed,
+                child: const Text("TextButton"),
             ),
-            Text(
-                "$_counter fois",
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 28,
-              ),
+            TextButton.icon(
+                onPressed: _update_LongPressed,
+                label: const Icon(Icons.palette)
             )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.small(
-          onPressed: _onButtonPressed,
-          tooltip: "Incrémentez le compteur",
-          backgroundColor: Colors.blueAccent,
-          foregroundColor: Colors.white,
-          elevation: 0,
-          child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
     );
   }
 }
