@@ -28,6 +28,18 @@ class _HomePageState extends State<HomePage> {
           : Colors.white;
     });
   }
+CrossAxisAlignment _alignement = CrossAxisAlignment.center;
+
+  _setToStart() {
+  setState(() {
+    _alignement = CrossAxisAlignment.start;
+  });
+}
+_setToEnd() {
+  setState(() {
+    _alignement = CrossAxisAlignment.end;
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +52,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: backgroundColor,
       body: Center(
         child: Column(
+          crossAxisAlignment: _alignement,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
@@ -74,6 +87,23 @@ class _HomePageState extends State<HomePage> {
                     Text("Changer le titre")
                   ],
                 )
+            ),
+
+            FilledButton(
+                onPressed: _setToStart,
+                child: const Text("Start")
+            ),
+            FilledButton(
+                onPressed: _setToEnd,
+                child: const Text("End")
+            ),
+            FilledButton.icon(
+                onPressed: (){
+                  setState(() {
+                    _alignement = CrossAxisAlignment.center;
+                  });
+                },
+                label: const Icon(Icons.restart_alt)
             )
           ],
         ),
