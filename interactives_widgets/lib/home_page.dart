@@ -20,6 +20,13 @@ class _HomePageState extends State<HomePage> {
     "Learn flutter"
   ];
   int _titleIndex = 0;
+  int _count = 0;
+
+  _updateCount(){
+    setState(() {
+      _count++;
+    });
+  }
 
   _update_LongPressed() {
     setState(() {
@@ -104,6 +111,17 @@ _setToEnd() {
                   });
                 },
                 label: const Icon(Icons.restart_alt)
+            ),
+            OutlinedButton(
+                onPressed: _updateCount,
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(
+                    width: 2,
+                    color: Colors.redAccent,
+                    style: BorderStyle.solid
+                  ),
+                ),
+                child: Text(("Jai appuyé le bouton $_count fois"))
             )
           ],
         ),
