@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   ];
   int _titleIndex = 0;
   int _count = 0;
+  double _iconSize = 16;
 
   _updateCount(){
     setState(() {
@@ -122,6 +123,14 @@ _setToEnd() {
                   ),
                 ),
                 child: Text(("Jai appuyé le bouton $_count fois"))
+            ),
+            IconButton(
+                onPressed: (){
+                  setState(() {
+                    _iconSize = Random().nextInt(250).toDouble();
+                  });
+                },
+                icon: Icon(Icons.add, size: _iconSize)
             )
           ],
         ),
