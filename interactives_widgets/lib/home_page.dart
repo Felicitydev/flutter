@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _formKey = GlobalKey<FormState>();
   late TextEditingController _controller;
   String _simple = "";
   final FocusNode _focus = FocusNode();
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller.dispose(),
     super.dispose();
   }
 
@@ -104,15 +105,47 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  ElevatedButton(
-                      onPressed: (
-                          setState(() {
-                            unFocusMethod2();
-                          });
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              unFocusMethod2();
+                            });
+                          },
+                          child: const Text("Affiche le texte")
                       ),
-                      child: const Text("Affiche le texte")
-                  ),
-                  Text(_controller.text)
+                  Text(_controller.text),
+                  Form(
+                    key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "L'adresse mail ne peut pas etre vide!!";
+                              } else {
+                                null;
+                              }
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Entrez votre adresse mail",
+                              label:Text("Adresse mail"),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  unFocusMethod2();
+                                } else {
+                                  print("Nope!!");
+                                }
+                              },
+                              child: const Text("Valider")
+                          )
+                        ],
+                      )
+
+                  )
                 ],
               ),
             ),
