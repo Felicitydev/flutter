@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: InkWell(
           onTap: () {
-            unFocusMethod3(_focus);
+            unFocusMethod1();
           },
           child: Center(
             child: Column(
@@ -58,10 +58,32 @@ class _HomePageState extends State<HomePage> {
                     _simple = submittedString;
                   },
                   focusNode: _focus,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: (){
+                          FocusScope.of(context).requestFocus(_nextFocus)
+                        }, 
+                        icon: Icon(Icons.next_plan)
+                    ),
+                    suffixIconColor: Colors.blue
+                  ),
                 ),
-                TextField(
-                  focusNode: _nextFocus,
-                )
+                const SizedBox(height: 24),
+                Padding(
+                    padding: const EdgeInsets.all(8),
+                  child:TextField(
+                    focusNode: _nextFocus,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50)
+                        ),
+                      icon: const Icon(Icons.person),
+                      label: Text("Nom de famille"),
+                      hintText: "Entrez votre nom",
+                    ),
+                  ),
+                ),
+
               ],
             ),
           )),
