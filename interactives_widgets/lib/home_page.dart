@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late TextEditingController _controller;
   String _simple = "";
   final FocusNode _focus = FocusNode();
   final FocusNode _nextFocus = FocusNode();
@@ -30,6 +31,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -42,50 +55,68 @@ class _HomePageState extends State<HomePage> {
             unFocusMethod1();
           },
           child: Center(
-            child: Column(
-              children: [
-                Text("Textfield simple: $_simple"),
-                TextField(
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  onChanged: (newString) {
-                    setState(() {
-                      _simple = newString;
-                    });
-                  },
-                  onSubmitted: (submittedString) {
-                    _simple = submittedString;
-                  },
-                  focusNode: _focus,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                        onPressed: (){
-                          FocusScope.of(context).requestFocus(_nextFocus)
-                        }, 
-                        icon: Icon(Icons.next_plan)
-                    ),
-                    suffixIconColor: Colors.blue
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Padding(
-                    padding: const EdgeInsets.all(8),
-                  child:TextField(
-                    focusNode: _nextFocus,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Text("Textfield simple: $_simple"),
+                  TextField(
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    onChanged: (newString) {
+                      setState(() {
+                        _simple = newString;
+                      });
+                    },
+                    onSubmitted: (submittedString) {
+                      _simple = submittedString;
+                    },
+                    focusNode: _focus,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50)
+                        suffixIcon: IconButton(
+                            onPressed: (){
+                              FocusScope.of(context).requestFocus(_nextFocus);
+                            },
+                            icon: Icon(Icons.next_plan)
                         ),
-                      icon: const Icon(Icons.person),
-                      label: Text("Nom de famille"),
-                      hintText: "Entrez votre nom",
+                        suffixIconColor: Colors.blue
                     ),
                   ),
-                ),
-
-              ],
+                  const SizedBox(height: 24),
+                   TextField(
+                      focusNode: _nextFocus,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                        icon: const Icon(Icons.person),
+                        label: Text("Nom de famille"),
+                        hintText: "Entrez votre nom",
+                      ),
+                   ),
+                  const SizedBox(height: 24),
+                  TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "Suis-je visible?"
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                      onPressed: (
+                          setState(() {
+                            unFocusMethod2();
+                          });
+                      ),
+                      child: const Text("Affiche le texte")
+                  ),
+                  Text(_controller.text)
+                ],
+              ),
             ),
+
           )),
     );
   }
