@@ -13,6 +13,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isOn = true;
+  double min = 0;
+  double max = 100;
+  double current = 33;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,30 @@ class _HomePageState extends State<HomePage> {
                   activeTrackColor: Colors.purple,
                 )
               ],
-            )
+            ),
+            Row(
+              children: [
+                Text(min.toString())
+                Expanded(
+                    child: Slider(
+                      min: min,
+                        max: max,
+                        value: current,
+                        onChanged: (newValue) {
+                          setState(() {
+                            current = newValue;
+                          });
+                        },
+                      divisions: 5,
+                      activeColor: Colors.blue,
+                      inactiveColor: Colors.black12,
+                    )
+                ),
+                Text(max.toString())
+
+              ],
+            ),
+            Text(("Valeur du slider = ${current.toInt()}"))
           ],
         ),
       )
