@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   double min = 0;
   double max = 100;
   double current = 33;
+  FavoritePlat? favoritePlat;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               children: [
-                Text(min.toString())
+                Text(min.toString()),
                 Expanded(
                     child: Slider(
                       min: min,
@@ -70,10 +71,37 @@ class _HomePageState extends State<HomePage> {
 
               ],
             ),
-            Text(("Valeur du slider = ${current.toInt()}"))
+            Text(("Valeur du slider = ${current.toInt()}")),
+            Column(
+              children: [
+                const Text("Le meilleur plat du monde"),
+                Column(
+                  children: FavoritePlat.values.map((plat){
+                    return Row(
+                      children: [
+                        Text(favoritePlat?.name ?? "Aucun plat sélectionné!"),
+                        Radio(
+                          activeColor: Colors.lightGreen,
+                            value: plat,
+                            groupValue: favoritePlat,
+                            onChanged: (plat){
+                              setState(() {
+                                favoritePlat = plat;
+                              });
+                            }
+                        )
+                      ],
+                    );
+                  }).toList()
+                )
+
+              ],
+            )
           ],
         ),
       )
     );
   }
 }
+
+enum FavoritePlat {Okok, Eru, Poulet_DG, Met_de_pistache}
