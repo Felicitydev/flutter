@@ -12,24 +12,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isOn = true;
-  double min = 0;
-  double max = 100;
-  double current = 33;
-  FavoritePlat? favoritePlat;
 
-  Map<String, bool> groceries = {
-    "Banane": false,
-    "Oeufs": false,
-    "Pates": false,
-    "Beurre": false,
-    "Poulet": false,
-    "Mayonnaise": false,
-    "Céréales": false,
-    "Café": false,
-    "Persil": false,
-    "Courgettes": false,
-  };
+  List<User> users = [
+    User("Boland", Colors.red),
+    User("Maelys", Colors.blue),
+    User("Maissane", Colors.purple),
+    User("Yohane", Colors.greenAccent),
+    User("Maxime", Colors.black38)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,24 +29,29 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
-        backgroundColor: isOn ? Colors.white : Colors.black38,
-        body: SingleChildScrollView(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: groceries.keys.map((key) {
-                return CheckboxListTile(
-                    title: Text(key),
-                    subtitle:
-                        Text(groceries[key]! ? "Dans le panier " : "A acheter"),
-                    value: groceries[key],
-                    onChanged: (bol) {
-                      setState(() {
-                        groceries[key] = bol ?? false;
-                      });
-                    });
-              }).toList()),
-        ));
+      body: Center(
+        child: Wrap(
+          children: users.map((user) {
+            return Chip(
+              label: Text(user.name),
+              avatar: CircleAvatar(
+                backgroundColor: user.color,
+                child: Text(user.name[0]),
+              ),
+              onDeleted: () {
+                users.remove(user);
+              },
+            );
+          }).toList()
+        ),
+      ),
+    );
   }
 }
 
-enum FavoritePlat { Okok, Eru, Poulet_DG, Met_de_pistache }
+class User {
+  String name;
+  Color color;
+
+  User(this.name, this.color);
+}
