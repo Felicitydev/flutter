@@ -13,6 +13,8 @@ class _ClassSelectorPageState extends State<CarSelectorPage> {
   String _firstName = "";
   double _kms = 0;
   bool _electric = true;
+  List<int> _places = [2, 4, 5, 7];
+  int _placesSelected = 2;
 
   Padding _interactiveWidget(
       {required List<Widget> children, bool isRow = false}) {
@@ -54,6 +56,12 @@ class _ClassSelectorPageState extends State<CarSelectorPage> {
     });
   }
 
+  void _updatePlaces(int? newValue) {
+    setState(() {
+      _placesSelected = newValue ?? 2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +91,23 @@ class _ClassSelectorPageState extends State<CarSelectorPage> {
             _interactiveWidget(isRow: true, children: [
               Text(_electric ? "Moteur électrique" : "Moteur thermique"),
               Switch(value: _electric, onChanged: _updateEngine)
+            ]),
+            _interactiveWidget(children: [
+              Text("Nombre de places: $_placesSelected"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: _places.map((place) {
+                  return Column(
+                    children: [
+                      Radio(
+                          value: place,
+                          groupValue: _placesSelected,
+                          onChanged: _updatePlaces)
+                    ],
+                  );
+                }).toList(),
+              )
             ])
           ],
         ),
