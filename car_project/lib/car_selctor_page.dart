@@ -12,6 +12,7 @@ class CarSelectorPage extends StatefulWidget {
 class _ClassSelectorPageState extends State<CarSelectorPage> {
   String _firstName = "";
   double _kms = 0;
+  bool _electric = true;
 
   Padding _interactiveWidget(
       {required List<Widget> children, bool isRow = false}) {
@@ -41,9 +42,15 @@ class _ClassSelectorPageState extends State<CarSelectorPage> {
     });
   }
 
-  void _updateKms(double newValue){
+  void _updateKms(double newValue) {
     setState(() {
       _kms = newValue;
+    });
+  }
+
+  void _updateEngine(bool newValue) {
+    setState(() {
+      _electric = newValue;
     });
   }
 
@@ -69,17 +76,14 @@ class _ClassSelectorPageState extends State<CarSelectorPage> {
                       border: InputBorder.none, hintText: "Entrez votre nom"),
                   onSubmitted: _updateFirstName)
             ]),
-            _interactiveWidget(
-                children: [
-                  Text("Nombre de kilomètres annuel: ${_kms.toInt()}"),
-                  Slider(
-                    min: 0,
-                      max: 25000,
-                      value: _kms,
-                      onChanged: _updateKms
-                  )
-                ]
-            )
+            _interactiveWidget(children: [
+              Text("Nombre de kilomètres annuel: ${_kms.toInt()}"),
+              Slider(min: 0, max: 25000, value: _kms, onChanged: _updateKms)
+            ]),
+            _interactiveWidget(isRow: true, children: [
+              Text(_electric ? "Moteur électrique" : "Moteur thermique"),
+              Switch(value: _electric, onChanged: _updateEngine)
+            ])
           ],
         ),
       ),
