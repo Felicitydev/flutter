@@ -15,6 +15,15 @@ class _ClassSelectorPageState extends State<CarSelectorPage> {
   bool _electric = true;
   List<int> _places = [2, 4, 5, 7];
   int _placesSelected = 2;
+  Map<String, bool> _options = {
+    "GPS" : false,
+    "Caméra de recul" : false,
+    "Clim par zone": false,
+    "Régulateur de vitesse" : false,
+    "Toit ouvrant" : false,
+    "Siège chauffant" : false,
+    "Roue de secours" : false,
+  };
 
   Padding _interactiveWidget(
       {required List<Widget> children, bool isRow = false}) {
@@ -59,6 +68,12 @@ class _ClassSelectorPageState extends State<CarSelectorPage> {
   void _updatePlaces(int? newValue) {
     setState(() {
       _placesSelected = newValue ?? 2;
+    });
+  }
+
+  void _updateOption(bool? newBool, String key) {
+    setState(() {
+      _options[key] = newBool ?? false;
     });
   }
 
@@ -108,7 +123,22 @@ class _ClassSelectorPageState extends State<CarSelectorPage> {
                   );
                 }).toList(),
               )
-            ])
+            ]),
+            
+            _interactiveWidget(
+                children: [
+                  const Text("Option du véhicule"),
+                  Column(
+                    children: _options.keys.map((key){
+                      return CheckboxListTile(
+                        title: Text(key),
+                          value: _options[key],
+                          onChanged: ((bol) => _updateOption(bol,key))
+                      );
+                    }).toList(),
+                  )
+                ]
+            )
           ],
         ),
       ),
