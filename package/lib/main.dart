@@ -37,6 +37,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   File? _file;
 
+  Future<void> _pickImage(ImageSource source) async{
+    XFile? xFile = await ImagePicker().pickImage(source: source);
+    if (xFile != null){
+      setState(() {
+        String path = xFile.path;
+        _file = File(path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,16 +59,16 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             _file != null
-                ? const Text("L'image")
+                ? Image.file(_file!)
                 : FlutterLogo(size: MediaQuery.of(context).size.width * 0.8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: (() => _pickImage(ImageSource.camera)),
                     icon: const Icon(FontAwesomeIcons.camera, color: Colors.blue,)),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: (() => _pickImage(ImageSource.gallery)),
                     icon: const Icon(FontAwesomeIcons.photoFilm, color: Colors.deepPurple,)),
               ],
             )
